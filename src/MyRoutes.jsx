@@ -5,6 +5,11 @@ import Homepage from './pages/Homepage'
 import Products from './pages/Products'
 import ProductDetails from './pages/ProductDetails'
 import Cart from './pages/Cart'
+import Confirm from './auth/Confirm'
+import ForgetPassword from './auth/ForgetPassword'
+import ResetPassword from './auth/ResetPassword'
+import Signup from './auth/Signup'
+import Signin from './auth/Signin'
 
 
 const MyRoutes = () => {
@@ -19,12 +24,14 @@ const MyRoutes = () => {
             <Route path='products' element={<Products/>}/>
             <Route path='product-details/:productID' element={<ProductDetails/>}/>
             <Route path='cart' element={<Cart/>}/>
-            {/* <Route path='register' element={<Register/>}/> */}
+            
+            <Route path='email/confirmation/:token' element={<Confirm/>}/>
+            <Route path='forgetpassword' element={<ForgetPassword/>}/>
+            <Route path='reset/password/:token' element={<ResetPassword/>}/>
+            <Route path='signup' element={<Signup/>}/>
+            <Route path='signin' element={<Signin/>}/>
           </Route>
 
-       
-            
-     
 
         </Routes>
 
