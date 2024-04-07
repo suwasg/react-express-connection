@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { signup } from '.'
 
 const Signup = () => {
+    // initial values field
     const [values,setValues] = useState({
         name:'',
         email:'',
@@ -10,10 +11,14 @@ const Signup = () => {
         error:'',
         success:false
     })
-      
-    const{name,email,password,phone,error,success}=values
 
-    const handleChange=name=>event=>{
+    // const {name, setName}=useState()
+      
+    const{name,email,password,phone,error,success}=values 
+    // name: values.name
+
+    const handleChange=name=>
+    event=>{
         setValues({...values,error:false,[name]:event.target.value})
     }
 
@@ -21,7 +26,7 @@ const Signup = () => {
         event.preventDefault()
         setValues({...values,error:false})
         //signup function
-        signup({name,email,password})
+        signup({name,email,password,phone})
         .then(data=>{
             if(data.error){
                 setValues({...values,error:data.error,success:false})
@@ -43,7 +48,7 @@ const Signup = () => {
     //to show success msg
     const showSuccess=()=>(
         <div className="alert alert-info" style={{display:success?'':'none'}}>
-       New account created, verify your account before login
+       New account created, verify your account before login.
     </div>
     )
     
@@ -59,7 +64,9 @@ const Signup = () => {
                             <div className="col-12 mb-3">
                                 <label htmlFor="firstname">Name</label>
                                 <input type="text" name="fname" id="firstname" placeholder="Name" className="form-control"
-                                onChange={handleChange('name')} value={name}
+                                onChange={handleChange('name')} 
+                                // onChange={(e)=>setName(e.target.value)}
+                                value={name}
                                 />
                             </div>
                             

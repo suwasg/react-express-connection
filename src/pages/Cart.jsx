@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { IMG_URL } from '../config';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Cart = () => {
@@ -92,13 +93,13 @@ const removeCartHandler=id=>{
               <h2 className='text-center'>Your Cart Items</h2>
               {/* items details */}
               <div className="col-md-8 shadow">
-                {items.map((item) => (
+                {items&&items?.map((item) => (
                   <Fragment key={item.id}>
-                
                     <hr />
                     <div className="row d-flex align-items-center">
                       <div className="col-2">
-                        <img src={item.image} alt={item.name} width={'50'} />
+                        <img src={` ${IMG_URL}/${item?.image}`} alt={item.name} width={'50'} />
+                        {/* {console.log('item.image: ',item.image)} */}
                       </div>
                       <div className="col-3">
                         <strong>{item.name}</strong>

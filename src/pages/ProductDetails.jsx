@@ -68,7 +68,7 @@ const ProductDetails = () => {
                 .map((pic,index)=>(
                   // console.log(`${IMG_URL}/${product_images}`)
                   // <img src={`${pic}`} alt={product_name}  />
-                  <img src={`${IMG_URL}/${product.product_images[0]}`} alt="" />
+                  <img src={`${IMG_URL}/${product.product_images[0]}`} alt="" height={200}/>
                 ))
               }
           </div>
