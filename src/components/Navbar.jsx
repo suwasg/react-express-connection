@@ -1,8 +1,10 @@
 import React from 'react'
 import { FaShoppingCart } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import {isAuthenticated, signout } from '../auth'
 const Navbar = () => {
+  const navigate=useNavigate()
+  const user=isAuthenticated()
   return (
     <>
        <nav className="navbar navbar-expand-lg bg-warning">
@@ -39,9 +41,45 @@ const Navbar = () => {
             </ul>
             <div className="d-flex flex-column flex-lg-row  align-items-lg-center">
                 <div className="mb-2 mb-lg-0 ">
-                    <button className="btn btn-dark text-white">
+                    {/* <button className="btn btn-dark text-white">
                         Log In
-                    </button>
+                    </button> */}
+
+                {
+                  !isAuthenticated() && 
+                  <>
+                  <NavLink to='/signin' type='button' className='btn btn-dark text-white me-2'> Login </NavLink>
+
+                  <NavLink to='/signup' type='button' className='btn btn-dark text-white me-2'> Register </NavLink>
+
+                  </>
+                  
+                }
+
+
+                {
+                  isAuthenticated() && isAuthenticated().user?.role===1 && 
+                  <NavLink to='/admin/dashboard' type='button' className='btn btn-dark me-2'>Admin</NavLink>
+                }
+
+{
+                  isAuthenticated() && isAuthenticated().user?.role===0 && 
+                  <NavLink to='/' type='button' className='btn btn-dark me-2'>Profile</NavLink>
+                }
+
+
+              {
+
+                isAuthenticated() && 
+                <button className="btn btn-danger mx-2 my-1"
+                onClick={()=>signout(
+                  ()=>navigate('/signin')
+                )}>
+                  Logout
+                </button>
+              }
+
+                    
                 </div>
                 
                 <div className="mb-2 mb-lg-0 ms-2">
