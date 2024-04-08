@@ -12,7 +12,9 @@ const Signin = () => {
         email: '',
         password: '',
         error: '',
-        redirectTo: false
+        redirectTo: false,
+        message:'',
+        success:false
     })
 
     const { email, password, error, redirectTo } = values
@@ -27,12 +29,12 @@ const Signin = () => {
         // call the signin function:
         signin({email,password})
         .then(data=>{
-          if(data.error){
-            setValues({...values,error:data.error})
+          if(data.success==false){
+            setValues({...values,error:data.message})
           }
           else{
             authenticate(data,()=>{
-              setValues({...values,redirectTo:true})
+              setValues({...values,redirectTo:true, success:true})
             })
           }
         })
