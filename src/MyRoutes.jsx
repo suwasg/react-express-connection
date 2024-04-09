@@ -12,6 +12,12 @@ import Signup from './auth/Signup'
 import Signin from './auth/Signin'
 import AdminRoute from './auth/AdminRoute'
 import Dashboard from './admin/Dashboard'
+import AdminProducts from './admin/AdminProducts'
+import AdminCategories from './admin/AdminCategories'
+import AddProduct from './admin/AddProduct'
+import UpdateProduct from './admin/UpdateProduct'
+import AddCategory from './admin/AddCategory'
+import NotFound from './pages/NotFound'
 const MyRoutes = () => {
   return (
     <Router>
@@ -36,8 +42,15 @@ const MyRoutes = () => {
           <Route path='/admin/' element={<AdminRoute/>}>
 
               <Route path='dashboard' element={<Dashboard/>}/>
-
+              <Route path='products' element={<AdminProducts/>}/>
+              <Route path='category' element={<AdminCategories/>}/>
+              <Route path='addproduct' element={<AddProduct/>}/>
+              <Route path='updateproduct/:productId' element={<UpdateProduct/>}/>
+              <Route path='addcategory' element={<AddCategory/>}/>
           </Route>
+
+
+          <Route path='/*' element={<NotFound/>}/>
 
 
         </Routes>

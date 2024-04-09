@@ -134,8 +134,20 @@ const AdminSidebar2 = () => {
                                             Add Blog
                                         </Link>
                                     </li>
+
+
                                    
                                 </ul>
+
+                                <Link
+                                      to="/signin"
+                                      className="btn btn-danger "
+                                      onClick={() => signout(() => {
+                                          navigate('/signin')
+                                      })}
+                                  >
+                                      Logout
+                                  </Link>
                             </div>
                         </div>
                     </div>

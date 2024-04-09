@@ -58,7 +58,7 @@ const removeCartHandler=id=>{
   if (confirmed){
     const filterCart=items.filter(item=>item.id!==id)
     localStorage.setItem('cartItems', JSON.stringify(filterCart))
-    setItems(filterCart)
+    setItems(filterCart)  
     toast.success(`${itemToRemove ? itemToRemove.name : 'The item'} is removed from the cart.`);
   }
 }

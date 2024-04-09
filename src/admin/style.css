@@ -1,0 +1,22 @@
+/* tables */
+.custom-responsive-table {
+    text-wrap: nowrap;
+    max-width: 100%; 
+  }
+
+.custom-responsive-table td {
+  text-wrap: nowrap;
+  word-wrap: break-word;
+  }
+
+.scroll-to-top {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  cursor: pointer;
+}
+.scroll-to-top.visible {
+  display: block;
+}

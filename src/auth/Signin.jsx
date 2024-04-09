@@ -70,7 +70,7 @@ const Signin = () => {
         <>
             <div className="container" style={{ marginBottom: '200px' }}>
                 <div className="d-flex justify-content-center">
-                    <div className="col-md-7 mt-4 mb-3 p-3 shadow-lg">
+                    <div className=" col-10 col-md-6 mt-4 mb-3 p-3 shadow-lg">
                         <form>
                             {showError()}
                             {redirectTo && <>{window.location.href = redirectUser()}</>}
