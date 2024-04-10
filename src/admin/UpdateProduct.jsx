@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { API_URL } from '../config'
 import { isAuthenticated } from '../auth'
@@ -7,13 +7,15 @@ import { ToastContainer, toast } from 'react-toastify'
 import './style.css'
 import { Helmet } from 'react-helmet'
 const UpdateProduct = () => {
+    // const navigate=useNavigate()
+    // const history=useHistory()
     const [product_name, setProductName] = useState("");
     const [count_in_stock, setCountInStock] = useState("");
     const [product_price, setProductPrice] = useState("");
     const [product_description, setProductDescription] = useState("");
     const [product_images, setProductImages] = useState([]);
     const [product_rating, setProductRating]=useState('')
-    const [category, setCategory] =useState('')
+    const [categoryId, setCategoryId] =useState('')
 
     const { token } = isAuthenticated()
 
@@ -21,7 +23,7 @@ const UpdateProduct = () => {
 
     const params=useParams()
     const id=params.productId
-    const[inititalValues, setInitialValues] = useState({})
+    const[initialValues, setInitialValues] = useState({})
 
 
   
@@ -53,7 +55,8 @@ const UpdateProduct = () => {
                     setProductRating(res.data.product.product_rating)
                     setProductDescription(res.data.product.product_description)
                     setProductImages(res.data.product.product_images)
-                    setCategory(res.data.product.category.category_name)
+                    // console.log('product_images',product_images)
+                    setCategoryId(res.data.product?.category?._id)
                 })
             }
             catch(error){
@@ -62,7 +65,8 @@ const UpdateProduct = () => {
         }
         fetchProductDetails()
     }, [id]);
-console.log(categories)
+
+    console.log('product_images: ', product_images)
 
     // Function to handle adding a product
 
@@ -80,12 +84,17 @@ console.log(categories)
                 setCountInStock('');
                 setProductPrice('');
                 setProductDescription('');
-                setCategory('');
+                setCategoryId('');
                 setProductImages(null);
                 setProductRating('')
                 
                 
                 toast.success('Product updated successfully.');
+                // setTimeout(()=>{
+                //     // navigate(to='/admin/products')
+                //     history.push('/admin/products')
+                // }, 5000)
+                
             } else {
                 console.log('Failed to update product:', response.data.message);
                 toast.error(response.data.message); // Display the actual error message
@@ -110,26 +119,42 @@ console.log(categories)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             const formData = new FormData();
             formData.append("product_name", product_name);
             formData.append("count_in_stock", count_in_stock);
             formData.append("product_price", product_price);
             formData.append("product_description", product_description);
-            formData.append("product_rating",product_rating)
-            formData.append("category", category);
-
+            formData.append("product_rating", product_rating);
+            // formData.append("category", category);
+            // Check if category is empty, if so, use the previous category value
+        const selectedCategory = categoryId || initialValues?.category?._id;
+        formData.append("category", selectedCategory);
+        console.log('selected category: ', selectedCategory)
+            // Check if product_images is empty
+        if (product_images.length === 0) {
+            // If it's empty, append previous image URLs from initialValues
+            console.log('initial values: ', initialValues.product_images);
+            initialValues.product_images.forEach((imageUrl) => {
+                // Assuming imageUrl is a string representing the URL or path of the image
+                formData.append("product_images", imageUrl);
+            });
+        } else {
+            // If it's not empty, append the new images
             for (let pic of product_images) {
                 formData.append("product_images", pic);
             }
-
-            // Call addProduct function to add the product
+        }
+    
+            // Call updateProduct function to update the product
             await updateProduct(formData);
         } catch (error) {
-            console.log('error on submit: ', error);
+            console.log('Error on submit: ', error);
         }
     };
+    
+    
 
 
     return (
@@ -208,20 +233,20 @@ console.log(categories)
                                 <select
                                     name="category"
                                     id="category"
-                                    className="form-control"
-                                    value={category}
-                                    onChange={(e) => setCategory(e.target.value)}
+                                    className="form-control" 
+                                    value={categoryId}
+                                    onChange={(e) => setCategoryId(e.target.value)}
                                 >
                                     <option value="">Select Category</option>
                                     {categories && categories.map((c,i)=>(
-                                            <option value={c._id} key={i}>
+                                            <option value={c?._id} key={i}>
                                                 {c?.category_name}</option>
                                         ))}
                                 </select>
                             </div>
 
                             <div className="mb-2">
-                                <button className="btn btn-primary px-4 py-2"
+                                <button className="btn btn-warning px-4 py-2"
                                     onClick={handleSubmit}>
                                     Update
                                 </button>

@@ -97,7 +97,7 @@ const AddProduct = () => {
                             </div>
 
                             <div className="mb-2">
-                                <button className="btn btn-primary px-4 py-2"
+                                <button className="btn btn-warning px-4 py-2"
                                     onClick={handleSubmit}>
                                     Add
                                 </button>

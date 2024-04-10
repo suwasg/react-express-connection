@@ -151,19 +151,21 @@ const AdminProducts = () => {
                         <td>{p?.product_name}</td>
                         <td>{p?.product_price}</td>
                         <td>{p?.count_in_stock}</td>
-                        <td>{p?.product_description.slice(0,100)}</td>
+                        <td>{p?.product_description.slice(0, 100)}</td>
                         <td>
-                          {/* {p?.product_images && p?.product_images.length > 0 && JSON.parse(p.productPictures).slice(0, 1).map((picture, index) => (
+                          {p?.product_images && p?.product_images.length > 0 && p.product_images.slice(0, 1).map((picture, index) => (
                             <img
                               key={index}
-                              src={`${IMG_URL}/${picture.img}`}
-                              alt={p.name}
+                              src={`${IMG_URL}/${picture}`}
+                              // alt={p?.product_name || 'Product Image'}
+                              alt="product images"
                               width={100}
                               height={150}
                             />
-                          ))} */}
+                          ))}
 
-{
+
+                          {/* {
                 p?.product_images && 
                 p?.product_images.length>0 && 
                 p?.product_images.slice(0,1)
@@ -171,7 +173,8 @@ const AdminProducts = () => {
                   <img src={`${IMG_URL}/${p?.product_images[0]}`} alt={p?.product_name}  width={100}
                   height={150} />
                 ))
-              }
+              } */}
+
                         </td>
                         <td>{p?.category?.category_name}</td>
                         <td>
@@ -191,7 +194,7 @@ const AdminProducts = () => {
                     )) : (
                       <tr>
                         <td colSpan={7}>
-                         <b> No products found</b>
+                          <b> No products found</b>
                         </td>
                       </tr>
                     )}
@@ -210,7 +213,7 @@ const AdminProducts = () => {
 
           </div>
         </div>
-        
+
 
 
       </div>

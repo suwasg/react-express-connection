@@ -7,7 +7,7 @@
   }
   
   /* Custom CSS */
-  @media  (min-width: 768px) {
+@media  (min-width: 768px) {
     .custom-vh-md-100 {
         height: 100vh;
     }

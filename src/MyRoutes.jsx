@@ -43,14 +43,18 @@ const MyRoutes = () => {
 
               <Route path='dashboard' element={<Dashboard/>}/>
               <Route path='products' element={<AdminProducts/>}/>
+
+
               <Route path='category' element={<AdminCategories/>}/>
+
               <Route path='addproduct' element={<AddProduct/>}/>
               <Route path='updateproduct/:productId' element={<UpdateProduct/>}/>
               <Route path='addcategory' element={<AddCategory/>}/>
           </Route>
 
 
-          <Route path='/*' element={<NotFound/>}/>
+          <Route path='/*' element={<NotFound/>}/> 
+          {/* catch-all route */}
 
 
         </Routes>

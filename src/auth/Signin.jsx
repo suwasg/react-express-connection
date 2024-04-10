@@ -20,7 +20,7 @@ const Signin = () => {
     const { email, password, error, redirectTo } = values
 
     const handleChange = name => event => {
-        setValues({ ...values, error: false, [name]: event.target.value })
+        setValues({ ...values, error: false,success:true, [name]: event.target.value })
     }
 
     const handleSubmit=e=>{
