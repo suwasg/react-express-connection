@@ -17,11 +17,12 @@ const AdminProducts = () => {
   const [totalPages, setTotalPages] = useState(1)
 
   const [searchQuery, setSearchQuery] = useState("");
-  const limit = 5
+  const limit = 2
+
   useEffect(() => {
     const fetchProduct = async () => {
       const encodedSearchQuery = encodeURIComponent(searchQuery); // Encode the search query
-      await axios.get(`${API_URL}/productlist`)
+      await axios.get(`${API_URL}/productlist/?page=${currentPage}&limit=${limit}&search=${encodedSearchQuery}`)
         .then((response) => {
           if (response.status === 200) {
             // Handle successful response
