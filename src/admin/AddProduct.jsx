@@ -6,6 +6,108 @@ import { ToastContainer, toast } from 'react-toastify'
 import './style.css'
 import { Helmet } from 'react-helmet'
 const AddProduct = () => {
+
+    // product field(variables) and their setter functions.
+    const[product_name, setProductName]=useState("")
+    const[product_price, setProductPrice]=useState("")
+    const[product_description, setProductDescription]=useState("")
+    const[count_in_stock, setCountInStock]=useState("")
+    const[product_rating, setProductRating]=useState(0)
+    const[product_images, setProductImages]=useState([])
+    const[category, setCategory]=useState("")
+
+    const {token} = isAuthenticated()
+
+    const [categories, setCategories]=useState([])
+
+    // fetch the categorylist from the server
+  
+    useEffect(()=>{
+        const fetchCategories=async()=>{
+            try{
+                const categoryRes=await axios.get(`${API_URL}/categorylist`)
+                console.log(categoryRes.data)
+                setCategories(categoryRes.data.categories)
+            }
+            catch(error){
+                console.log("error on category list api fetch: ", error)
+            }
+        }
+        fetchCategories()
+    },[])
+
+
+    // define the function to add product 
+    const addProduct=async(formData)=>{
+        try{
+            const response = await axios.post(`${API_URL}/postproduct`, formData, {
+                headers:{
+                    "Content-Type":"multipart/form-data",
+                    Authorization:`Bearer ${token}`
+                }
+            })
+
+            if(response.status===201){
+                setProductName("")
+                setProductPrice("")
+                setProductDescription("")
+                setProductImages([])
+                setProductRating("")
+                setCategory("")
+                setCountInStock("")
+
+                toast.success("Product Added Successfully.", response.data.message)
+            }
+            else{
+                console.log("Error on adding product.")
+                toast.error("Error on adding product")
+            }
+
+        }
+        catch(error){
+            console.log(error)
+            toast.error("error on add product.", error.message)
+        }
+    }
+
+    // handle product images
+    const handleProductImages=(e)=>{
+        setProductImages([...product_images, e.target.files[0]])
+    }
+
+
+    // handlesubmit
+    const handleSubmit=async(e)=>{
+        e.preventDefault();
+        try{
+            const formData= new FormData()
+            formData.append("product_name", product_name)
+            formData.append("product_description", product_description)
+            formData.append("product_price", product_price)
+            formData.append("product_rating", product_rating)
+            formData.append("count_in_stock", count_in_stock)
+            formData.append('category', category)
+
+            // for (let pic in product_images){
+            //     formData.append("product_images", pic)
+            // }
+
+            for (let i = 0; i < product_images.length; i++) {
+                formData.append("product_images", product_images[i]);
+            }
+            
+
+
+            await addProduct(formData)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+   
+
+
+   
     
 
     return (
@@ -78,6 +180,8 @@ const AddProduct = () => {
                                     id="product_images"
                                     className="form-control"
                                     onChange={handleProductImages}
+                                    multiple
+                                    
                                 />
                             </div>
                             <div className="mb-2">

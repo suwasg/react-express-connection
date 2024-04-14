@@ -57,8 +57,8 @@ const Signin = () => {
       if (user && user.role === 1) {
         return '/admin/dashboard'; // Return the path string for admin dashboard
         } 
-        // else if (redirectParam === 'shipping') {
-        //   return '/shipping';
+      //   else if (redirectParam === 'shipping') {
+      //     return '/shipping';
       // } 
       else {
         return '/';

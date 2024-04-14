@@ -18,6 +18,7 @@ import AddProduct from './admin/AddProduct'
 import UpdateProduct from './admin/UpdateProduct'
 import AddCategory from './admin/AddCategory'
 import NotFound from './pages/NotFound'
+import Shipping from './pages/Shipping'
 const MyRoutes = () => {
   return (
     <Router>
@@ -36,6 +37,7 @@ const MyRoutes = () => {
             <Route path='reset/password/:token' element={<ResetPassword/>}/>
             <Route path='signup' element={<Signup/>}/>
             <Route path='signin' element={<Signin/>}/>
+
           </Route>
 
     {/* admin routes */}

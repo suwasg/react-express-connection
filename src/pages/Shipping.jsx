@@ -56,7 +56,7 @@ const Shipping = () => {
               </div>
               <div className='mb-2 '>
                 <label htmlFor="phone">Phone</label>
-                <input type="number" name="phone" id="phone" className="form-control" onChange={(e)=>setPhone(e.target.value)} value={phone} />
+                <input type="text" name="phone" id="phone" className="form-control" onChange={(e)=>setPhone(e.target.value)} value={phone} />
               </div>
               <div className="mb-2">
                 <label htmlFor="country">Country</label>
@@ -71,7 +71,7 @@ const Shipping = () => {
                 </select>
               </div>
               <div className="mb-2">
-                <button className="btn btn-primary" onClick={submitHandler}>Continue</button>
+                <button className="btn btn-warning" onClick={submitHandler}>Continue</button>
               </div>
             </form>
           </div>
