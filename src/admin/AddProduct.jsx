@@ -5,9 +5,11 @@ import { isAuthenticated } from '../auth'
 import { ToastContainer, toast } from 'react-toastify'
 import './style.css'
 import { Helmet } from 'react-helmet'
+import { useNavigate } from 'react-router-dom'
 const AddProduct = () => {
 
     // product field(variables) and their setter functions.
+    const navigate=useNavigate()
     const[product_name, setProductName]=useState("")
     const[product_price, setProductPrice]=useState("")
     const[product_description, setProductDescription]=useState("")
@@ -57,6 +59,10 @@ const AddProduct = () => {
                 setCountInStock("")
 
                 toast.success("Product Added Successfully.", response.data.message)
+
+                setTimeout(()=>{
+                    navigate('/admin/products')
+                }, 3000)
             }
             else{
                 console.log("Error on adding product.")

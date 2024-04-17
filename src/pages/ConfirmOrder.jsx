@@ -5,19 +5,24 @@ import { IMG_URL } from '../config'
 
 
 const ConfirmOrder = () => {
-    const navigate = useNavigate()
-    const cartItems = JSON.parse(localStorage.getItem('cart')) 
-    const shippingInfo = JSON.parse(localStorage.getItem('shipping'))
-    const { user } = isAuthenticated()
-    const totalPrice = cartItems.reduce((ac, item) => (ac + item.quantity * item.price), 0)
+   
+    const navigate=useNavigate()
+
+    const cartItems=JSON.parse(localStorage.getItem('cartItems'))
+    const shippingInfo=JSON.parse(localStorage.getItem('shippingInfo'))
+
+    const {user} = isAuthenticated()
+
+    const totalPrice= cartItems.reduce((acc, item)=> (acc + item.quantity * item.price), 0)
 
     const processToPayment=()=>{
-        const data={
+        const orderInfo={
             totalPrice
         }
-        sessionStorage.setItem('orderInfo', JSON.stringify(data))
+        sessionStorage.setItem('orderInfo', JSON.stringify(orderInfo))
         navigate('/payment')
     }
+    
 
     return (
         <>
@@ -48,7 +53,7 @@ const ConfirmOrder = () => {
 
                                 <b>Shipping Address</b>:
                                 <span className="text-muted">
-                                    {shippingInfo.shippingAddress1}, {shippingInfo.shippingAddress2}
+                                    {shippingInfo.shipping_address1}, {shippingInfo.shipping_address2}
                                 </span>
                             </div>
                             {/* city */}
@@ -97,7 +102,7 @@ const ConfirmOrder = () => {
                                             {item.name}
                                         </p>
                                     </div>
-                                    <div className="col-2">
+                                    <div className="col-3">
                                         <p className="text-primary">
                                             Rs. {item.price} X {item.quantity}= <b>Rs. {item.quantity * item.price}</b>
                                         </p>

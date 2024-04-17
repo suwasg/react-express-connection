@@ -19,12 +19,13 @@ import UpdateProduct from './admin/UpdateProduct'
 import AddCategory from './admin/AddCategory'
 import NotFound from './pages/NotFound'
 import Shipping from './pages/Shipping'
+import ConfirmOrder from './pages/ConfirmOrder'
+
 const MyRoutes = () => {
   return (
     <Router>
 
         <Routes>
-
 
           <Route path='/' element={<Layouts/>}>
             <Route index element={<Homepage/>}/>
@@ -38,6 +39,10 @@ const MyRoutes = () => {
             <Route path='signup' element={<Signup/>}/>
             <Route path='signin' element={<Signin/>}/>
 
+            <Route path='shipping' element={<Shipping/>}/>
+            <Route path='confirm' element={<ConfirmOrder/>}/>
+            {/* <Route path='payment' element={<PaymentElements/>}/>
+            <Route path='success' element={<OrderSuccess/>}/> */}
           </Route>
 
     {/* admin routes */}

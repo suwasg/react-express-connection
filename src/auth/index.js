@@ -43,17 +43,31 @@ export const authenticate=(data,next)=>{
     }
 }
 
-export const isAuthenticated=()=>{
-    if(typeof window === undefined){
-        return false
+// export const isAuthenticated=()=>{
+//     if(typeof window === undefined){
+//         return false
+//     }
+//     if(localStorage.getItem('jwt')){
+//         return JSON.parse(localStorage.getItem('jwt'))
+//     }
+//     else{
+//         return false
+//     }
+// }
+
+export const isAuthenticated = () => {
+    if (typeof window === 'undefined') {
+        return false;
     }
-    if(localStorage.getItem('jwt')){
-        return JSON.parse(localStorage.getItem('jwt'))
+    const jwt = localStorage.getItem('jwt');
+    console.log('JWT:', jwt); // Add this line
+    if (jwt) {
+        return JSON.parse(jwt);
+    } else {
+        return false;
     }
-    else{
-        return false
-    }
-}
+};
+
 
 
 export const signout=next=>{

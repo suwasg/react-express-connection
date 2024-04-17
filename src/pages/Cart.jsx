@@ -64,6 +64,11 @@ const removeCartHandler=id=>{
   }
 }
 
+  const shippingHandler=()=>{
+    navigate('/signin?redirect=shipping')
+  }
+
+
     return (
     <>
       <ToastContainer theme='colored' position='top-center' autoClose={1000} pauseOnHover />
@@ -162,7 +167,7 @@ const removeCartHandler=id=>{
                         <p><strong>Total:</strong>${items.reduce((ac,item)=> ac+(item.quantity*item.price) ,0  )}    
                         </p>
                         <hr />
-                        <button className="btn btn-warning">Check Out</button>
+                        <button className="btn btn-warning"  onClick={shippingHandler}>Check Out</button>
                   </div>
 
 
