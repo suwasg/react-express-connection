@@ -111,7 +111,7 @@ const removeCartHandler=id=>{
                         <strong>{item.name}</strong>
                       </div>
                       <div className="col-1 text-warning">
-                        ${item.price}
+                        Rs.{item.price}
                       </div>
                       <div className="col-2">
                         {item.rating} stars
@@ -164,7 +164,7 @@ const removeCartHandler=id=>{
                         <h3 className='fw-bold'>Cart Summary</h3>
                         <hr/>
                         <p><strong>Units:</strong>{items.reduce((a,b)=>a+ Number(b.quantity),0)} </p>
-                        <p><strong>Total:</strong>${items.reduce((ac,item)=> ac+(item.quantity*item.price) ,0  )}    
+                        <p><strong>Total:</strong>Rs.{items.reduce((ac,item)=> ac+(item.quantity*item.price) ,0  )}    
                         </p>
                         <hr />
                         <button className="btn btn-warning"  onClick={shippingHandler}>Check Out</button>

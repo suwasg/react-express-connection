@@ -13,7 +13,7 @@ const Products = () => {
   useEffect(()=>{
     const fetchProduct=async()=>{
       try{
-        const response=await axios.get(`${API_URL}/productlist`)
+        const response=await axios.get(`${API_URL}/productlist/?limit=${limit}`)
         setProducts(response.data.products)
         setLoading(false)
        

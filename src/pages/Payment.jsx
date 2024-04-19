@@ -7,10 +7,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
 
+const options={
+    style:{
+        base:{
+            fontSize:'18px'
+        },
+        invalid:{
+            color:'red' 
+        }
+    }
+}
+
 const Payment = () => {
 
     const navigate=useNavigate()
-    const stipe=useStripe()
+    const stripe=useStripe()
     const elements=useElements()
     const{user, token} = isAuthenticated()
     console.log('user: ', user)
@@ -34,6 +45,83 @@ const Payment = () => {
         user:user._id
     }
     console.log('order: ', order)
+
+    const orderInfo=JSON.parse(sessionStorage.getItem('orderInfo'))
+    console.log('orderInfo: ', orderInfo)
+
+    const paymentData={
+        amount:Math.round(orderInfo.totalPrice*100)
+    }
+
+    const submitHandler=async(e)=>{
+        e.preventDefault()
+        document.querySelector("#pay-btn").disabled=true
+
+        let response;
+        try{
+            const config= {
+                headers:{
+                    'Content-Type':'application/json',
+                    Authorization:`Bearer ${token}`
+                }
+            }
+            response=axios.post(`${API_URL}/process/payment`, paymentData,config)
+            const client_secret=(await response).data.client_secret
+            console.log('client secret: ', client_secret)
+
+            if(!stripe || !elements){
+                return
+            }
+
+            const paymentMethod={
+                payment_method:{
+                    card:elements.getElement(CardNumberElement),
+                    billing_details:{
+                        name:user?.name,
+                        email:user?.email,
+                    phone:user?.phone  
+                    }
+                }
+            }
+            const result=await stripe.confirmCardPayment(`${client_secret}`,paymentMethod )
+
+            if(result.error){
+                toast.error(result.error.message)
+                document.querySelector('#pay-btn').disabled=false
+            }
+            else{
+                // payment processed or not
+                if(result.paymentIntent.status==='succeeded'){
+                    order.paymentInfo={
+                        id:result.paymentIntent.id,
+                        status:result.paymentIntent.status
+                    }
+                }
+
+                try{
+                    const config= {
+                        headers:{
+                            'Content-Type':'application/json',
+                            Authorization:`Bearer ${token}`
+                        }
+                    }
+                    const {data}= await axios.post(`${API_URL}/postorder`, order, config)
+                    localStorage.removeItem('cartItems')
+                    navigate('/success')
+
+                }
+                catch(error){
+                        toast.error(error)
+                }
+            }
+
+        }
+        catch(error){
+            document.querySelector('#pay-btn').disabled=false
+            toast.error(error)
+        }
+
+    }
 
 
   return (

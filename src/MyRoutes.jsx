@@ -20,6 +20,8 @@ import AddCategory from './admin/AddCategory'
 import NotFound from './pages/NotFound'
 import Shipping from './pages/Shipping'
 import ConfirmOrder from './pages/ConfirmOrder'
+import PaymentElements from './pages/PaymentElements'
+import OrderSuccess from './pages/OrderSuccess'
 
 const MyRoutes = () => {
   return (
@@ -41,8 +43,8 @@ const MyRoutes = () => {
 
             <Route path='shipping' element={<Shipping/>}/>
             <Route path='confirm' element={<ConfirmOrder/>}/>
-            {/* <Route path='payment' element={<PaymentElements/>}/>
-            <Route path='success' element={<OrderSuccess/>}/> */}
+            <Route path='payment' element={<PaymentElements/>}/>
+            <Route path='success' element={<OrderSuccess/>}/>
           </Route>
 
     {/* admin routes */}
